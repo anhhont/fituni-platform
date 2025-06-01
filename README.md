@@ -84,10 +84,10 @@ FitUni is a web application that connects university students with compatible fi
 - **Send Requests**: Propose workout sessions with specific times and sports.
 - **Chat**: Communicate with matched partners to plan workouts.
 
-## Project structure
+## Project Structure
 
-    ```bash
-    fituni-platform/
+```
+fituni-platform/
 ├── app.py              # Main Flask application
 ├── templates/          # HTML templates
 │   ├── base.html
@@ -110,7 +110,7 @@ FitUni is a web application that connects university students with compatible fi
 ├── .env.example       # Example environment variables
 ├── LICENSE            # MIT License
 ├── README.md          # This file
-    ```
+```
 
 ## License
 
