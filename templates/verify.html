@@ -1,0 +1,42 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Verify Your Account{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 animate-fade-in">
+      <h2 class="text-3xl font-bold text-center mb-4 text-[var(--primary-color)]">
+        <span class="material-icons mr-2">verified</span> Verify Your Account
+      </h2>
+      <p class="text-center text-gray-600 mb-6">Enter the 4-digit code sent to <strong>{{ email }}</strong>.</p>
+      <p class="text-center text-gray-600 mb-6">IMPORTANT: Please check your spam folder.</p>
+      <form method="POST" action="{{ url_for('verify', email=email) }}">
+        <div class="mb-6">
+          <label for="code" class="block text-sm font-medium text-gray-700">Security Code</label>
+          <input type="text" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" id="code" name="code" placeholder="Enter 4-digit code" required>
+        </div>
+        <div class="hidden" style="display: none;">
+          <label for="website">Website (leave blank)</label>
+          <input type="text" id="website" name="website" value="">
+        </div>
+        <button type="submit" class="w-full bg-[var(--primary-color)] text-white font-bold py-2 rounded-md hover:bg-[var(--primary-dark)] transition-colors flex items-center justify-center transform hover:scale-105 shadow-md">
+          <i class="fas fa-check mr-2"></i> Verify
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+```

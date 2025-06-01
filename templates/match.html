@@ -1,0 +1,33 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Find Workout Partners{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-6 text-[var(--primary-color)]">
+      <span class="material-icons mr-2">group</span> Your Workout Partners
+    </h2>
+    {% if match %}
+      <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 text-center">
+        <p class="text-gray-700 mb-2">You matched with <strong>{{ match[2] }}</strong>!</p>
+        <p class="text-gray-600 mb-4">Match score: {{ (score * 100) | round(2) }}%</p>
+        <div class="flex justify-center space-x-4">
+          <a href="{{ url_for('confirm', user_id=user_id, match_id=match_id, action='accept') }}" 
+             class="bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-[var(--primary-dark)] transition-colors">
+            <i class="fas fa-check mr-2"></i> Accept
+          </a>
+          <a href="{{ url_for('confirm', user_id=user_id, match_id=match_id, action='reject') }}" 
+             class="border border-[var(--primary-color)] text-[var(--primary-color)] py-2 px-4 rounded-md hover:bg-[var(--primary-color)] hover:text-white transition-colors">
+            <i class="fas fa-times mr-2"></i> Reject
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-center text-gray-600">No workout partners found yet. Update your profile to find matches!</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+```

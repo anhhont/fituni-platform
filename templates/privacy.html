@@ -1,0 +1,121 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8 animate-fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-[var(--primary-color)]">
+        <i class="fas fa-lock mr-2"></i> Privacy Policy
+      </h2>
+      <p class="text-gray-600 mb-6">Last updated: May 19, 2025</p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">1. Introduction</h3>
+      <p class="text-gray-600 mb-4">
+        FitUni, developed as a student project, is committed to protecting your personal data in accordance with applicable data protection laws and university policies. This policy explains how we collect, use, store, and protect your information when using our platform.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">2. Data We Collect</h3>
+      <p class="text-gray-600 mb-4">We collect the following data, in compliance with data protection laws:</p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li><strong>Basic Data</strong>: University email, name (optional), gender, profile description (bio).</li>
+        <li><strong>Sensitive Data</strong>: Sports preferences (e.g., badminton, yoga), skill levels, available times, location (e.g., Campus, Downtown).</li>
+        <li><strong>Technical Data</strong>: IP address, session data (login sessions, anonymized analytics).</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">3. How We Collect Data</h3>
+      <p class="text-gray-600 mb-4">Data is collected when you:</p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>Sign up or sign in using your university email and password.</li>
+        <li>Complete your profile (sports, availability, location).</li>
+        <li>Interact on the platform (send match requests, accept/reject matches).</li>
+        <li>Receive verification codes or notifications via email.</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">4. Purpose and Legal Basis</h3>
+      <p class="text-gray-600 mb-4">
+        We process your data with your consent to:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>Create and verify your account (university email, password).</li>
+        <li>Match you with workout partners based on preferences, availability, and location.</li>
+        <li>Send email notifications (verification codes, match updates).</li>
+        <li>Ensure security (bcrypt encryption, bot detection).</li>
+        <li>Perform anonymized analytics (no personal data shared).</li>
+        <li>Comply with university policies and applicable laws.</li>
+      </ul>
+      <p class="text-gray-600 mb-4">
+        By clicking "Sign Up" or signing in, you consent to this processing.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">5. Data Storage and Security</h3>
+      <p class="text-gray-600 mb-4">
+        Data is securely stored in a cloud database with the following security measures:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>Password encryption using bcrypt.</li>
+        <li>Honeypot fields to detect bots.</li>
+        <li>Temporary verification codes (expire after 1 hour).</li>
+      </ul>
+      <p class="text-gray-600 mb-4">
+        Data is retained only as long as necessary or as required by law.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">6. Data Sharing</h3>
+      <p class="text-gray-600 mb-4">
+        We do not share personal data, except:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>With matched workout partners (name, sports, availability).</li>
+        <li>As required by university authorities or legal obligations.</li>
+        <li>Anonymized data for analytics (not linked to individuals).</li>
+      </ul>
+      <p class="text-gray-600 mb-4">
+        The platform does not use third-party advertising or analytics services.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">7. Your Rights</h3>
+      <p class="text-gray-600 mb-4">
+        Under applicable data protection laws, you have the right to:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>Access, modify, or delete your personal data.</li>
+        <li>Withdraw consent for data processing.</li>
+        <li>Request data transfer or restrict processing.</li>
+        <li>File a complaint with relevant authorities if data is misused.</li>
+      </ul>
+      <p class="text-gray-600 mb-4">
+        Contact: <a href="mailto:support@example.edu" class="text-[var(--primary-color)] hover:underline">support@example.edu</a>.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">8. Data Transfer</h3>
+      <p class="text-gray-600 mb-4">
+        The platform operates within the university community and does not transfer data to third parties for other purposes.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">9. Policy Updates</h3>
+      <p class="text-gray-600 mb-4">
+        We may update this policy. Continued use of the platform constitutes acceptance of updates. Check this page regularly.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">10. Contact</h3>
+      <p class="text-gray-600 mb-4">
+        For privacy concerns, contact: <a href="mailto:support@example.edu" class="text-[var(--primary-color)] hover:underline">support@example.edu</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+```

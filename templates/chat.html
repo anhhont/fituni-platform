@@ -1,0 +1,44 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Chat with {{ other_user.name }}{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold text-[var(--primary-color)] mb-6 flex items-center animate-fade-in">
+        <i class="fas fa-comment mr-2"></i> Chat with {{ other_user.name }}
+      </h1>
+
+      <!-- Chat Messages -->
+      <div class="bg-white p-6 rounded-lg shadow-lg mb-6 max-h-96 overflow-y-auto">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="{% if message.sender_id == user.id %}text-right{% else %}text-left{% endif %} mb-4">
+              <p class="text-sm text-gray-500">{{ message.timestamp | format_datetime }}</p>
+              <p class="inline-block bg-{% if message.sender_id == user.id %}blue-100{% else %}gray-100{% endif %} p-2 rounded-lg">
+                {{ message.content }}
+              </p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-gray-600">No messages yet. Start the conversation!</p>
+        {% endif %}
+      </div>
+
+      <!-- Message Input -->
+      <form method="POST" action="{{ url_for('send_message', user_id=user.id, other_user_id=other_user.id) }}">
+        <div class="flex space-x-4">
+          <input type="text" name="content" class="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]" placeholder="Type your message..." required>
+          <button type="submit" 
+                  class="bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded-md hover:bg-[var(--primary-dark)] transition-colors transform hover:scale-105 flex items-center justify-center shadow-lg">
+            <i class="fas fa-paper-plane mr-2"></i> Send
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
+```

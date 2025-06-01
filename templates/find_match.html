@@ -1,0 +1,57 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Find Workout Partners{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-6 text-[var(--primary-color)]">
+      <span class="material-icons mr-2">group</span> Your Workout Partners
+    </h2>
+    {% if best_match %}
+      <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 text-center">
+        <h3 class="text-xl font-semibold text-[var(--primary-color)]">{{ best_match.name }}</h3>
+        <p class="text-gray-600 mb-2">Gender: {{ best_match.gender | capitalize }}</p>
+        <p class="text-gray-600 mb-2">Sports: {{ best_match.sports | join(', ') | capitalize }}</p>
+        <p class="text-gray-600 mb-4">{{ best_match.description }}</p>
+        <form method="POST" action="{{ url_for('find_match', user_id=user_id, receiver_id=best_match.id) }}">
+          <div class="mb-4">
+            <label for="time_slot" class="block text-sm font-medium text-gray-700">Select Time Slot</label>
+            <select name="time_slot" id="time_slot" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]">
+              {% for slot in shared_slots %}
+                <option value="{{ slot }}">{{ slot | format_datetime }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="sport" class="block text-sm font-medium text-gray-700">Select Sport</label>
+            <select name="sport" id="sport" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)]">
+              {% for sport in shared_sports %}
+                <option value="{{ sport }}">{{ sport | capitalize }}</option>
+              {% endfor %}
+              <option value="Other">Other</option>
+            </select>
+            <input type="text" name="other_sport" id="other_sport" class="w-full mt-2 rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] hidden" placeholder="Specify other sport">
+          </div>
+          <div class="flex justify-center space-x-4">
+            <button type="submit" class="bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-[var(--primary-dark)] transition-colors">
+              <i class="fas fa-dumbbell mr-2"></i> Send Request
+            </button>
+          </div>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-center text-gray-600">No workout partners found. Update your profile to find matches!</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  document.getElementById('sport').addEventListener('change', function() {
+    const otherSportInput = document.getElementById('other_sport');
+    otherSportInput.classList.toggle('hidden', this.value !== 'Other');
+  });
+</script>
+{% endblock %}
+```

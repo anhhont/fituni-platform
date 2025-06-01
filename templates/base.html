@@ -1,0 +1,153 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %} - FitUni</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #ad171c;
+      --primary-dark: #8b1317;
+      --light-gray: #f1faee;
+      --background: #ffffff;
+      --text: #333333;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+    }
+    h1, h2, h3 {
+      font-family: 'League Spartan', sans-serif;
+    }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-toggle {
+      display: none;
+    }
+    .nav-menu {
+      display: flex;
+    }
+    .banner {
+      background-color: var(--primary-dark);
+    }
+    @media (max-width: 640px) {
+      .nav-toggle {
+        display: block;
+        color: var(--text);
+        background-color: var(--background);
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
+      .nav-toggle i {
+        color: var(--text);
+      }
+      .nav-menu {
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--background);
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .nav-menu a {
+        color: var(--text);
+        padding: 0.5rem 0;
+      }
+      .nav-menu a:hover {
+        color: var(--primary-color);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="bg-white text-[var(--text)] p-4 sticky top-0 z-10 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <a class="text-2xl font-bold flex items-center text-[var(--primary-color)]" href="{{ url_for('landing') }}">
+        <i class="fas fa-plus mr-2"></i> FitUni
+      </a>
+      <button class="nav-toggle sm:hidden focus:outline-none">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-menu space-x-4 sm:flex items-center">
+        {% if session.user_id %}
+          <a href="{{ url_for('dashboard', user_id=session.user_id) }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Dashboard</a>
+          <a href="{{ url_for('profile', user_id=session.user_id) }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Profile</a>
+          <a href="{{ url_for('bookings', user_id=session.user_id) }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Bookings</a>
+          <a href="{{ url_for('find_instructor', user_id=session.user_id) }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Find Instructor</a>
+          <a href="{{ url_for('logout') }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Logout</a>
+        {% else %}
+          <a href="{{ url_for('signin') }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Sign In</a>
+          <a href="{{ url_for('signup') }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Sign Up</a>
+          <a href="{{ url_for('terms') }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Terms</a>
+          <a href="{{ url_for('privacy') }}" class="hover:text-[var(--primary-color)] font-bold transition-colors">Privacy</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container mx-auto px-4 py-4 flash-messages">
+        {% for category, message in messages %}
+          <div class="bg-{% if category == 'error' %}red{% else %}green{% endif %}-100 border border-{% if category == 'error' %}red{% else %}green{% endif %}-400 text-{% if category == 'error' %}red{% else %}green{% endif %}-700 px-4 py-3 rounded relative mb-4 animate-fade-in" role="alert">
+            <span class="block sm:inline">{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Main Content -->
+  <main class="bg-[var(--light-gray)] text-[var(--text)] p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--primary-color)] text-white py-6 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <div class="flex justify-center space-x-4">
+        <a class="hover:underline font-bold">© 2025 FitUni. All rights reserved</a>
+        <a class="hover:underline font-bold">Built by Group 8</a>
+        <a href="{{ url_for('terms') }}" class="hover:underline font-bold">Terms</a>
+        <a href="{{ url_for('privacy') }}" class="hover:underline font-bold">Privacy</a>
+        <a href="https://facebook.com" target="_blank" class="hover:underline font-bold"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Navbar Toggle Script -->
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
+```

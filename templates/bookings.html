@@ -1,0 +1,77 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Bookings</h1>
+
+    <!-- Pending Requests -->
+    <h2 class="text-2xl font-semibold mb-4">Pending Requests</h2>
+    {% if pending_requests %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for request in pending_requests %}
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h3 class="text-xl font-bold">
+                        {% if request.sender_id == user_id %}
+                            Sent to {{ request.name }}
+                        {% else %}
+                            From {{ request.name }}
+                        {% endif %}
+                    </h3>
+                    <p class="text-gray-600 mb-2"><strong>Gender:</strong> {{ request.gender | capitalize }}</p>
+                    <p class="text-gray-600 mb-2"><strong>Sports:</strong> 
+                        {% if request.sports %}
+                            {{ request.sports | join(', ') | capitalize }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </p>
+                    <p class="text-gray-600 mb-2"><strong>Time:</strong> {{ request.selected_time_slot | format_datetime }}</p>
+                    <p class="text-gray-600 mb-2"><strong>Selected Sport:</strong> {{ request.selected_sport | capitalize }}</p>
+                    <p class="text-gray-600 mb-4"><strong>Description:</strong> {{ request.description | default('No description') }}</p>
+                    <div class="flex space-x-2">
+                        {% if request.receiver_id == user_id %}
+                            <a href="{{ url_for('request_action', user_id=user_id, request_id=request.id, action='accept') }}" 
+                               class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Accept</a>
+                            <a href="{{ url_for('request_action', user_id=user_id, request_id=request.id, action='reject') }}" 
+                               class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reject</a>
+                        {% endif %}
+                        <a href="{{ url_for('chat', user_id=user_id, other_user_id=request.sender_id if request.receiver_id == user_id else request.receiver_id) }}" 
+                           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Chat</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-600">No pending requests.</p>
+    {% endif %}
+
+    <!-- Confirmed Bookings -->
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Confirmed Bookings</h2>
+    {% if confirmed_matches %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for match in confirmed_matches %}
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h3 class="text-xl font-bold">With {{ match.name }}</h3>
+                    <p class="text-gray-600 mb-2"><strong>Gender:</strong> {{ match.gender | capitalize }}</p>
+                    <p class="text-gray-600 mb-2"><strong>Sports:</strong> 
+                        {% if match.sports %}
+                            {{ match.sports | join(', ') | capitalize }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </p>
+                    <p class="text-gray-600 mb-2"><strong>Selected Sport:</strong> {{ match.selected_sport | capitalize }}</p>
+                    <p class="text-gray-600 mb-2"><strong>Time:</strong> {{ match.selected_time_slot | format_datetime }}</p>
+                    <p class="text-gray-600 mb-4"><strong>Matched on:</strong> {{ match.timestamp | format_datetime }}</p>
+                    <a href="{{ url_for('chat', user_id=user_id, other_user_id=match.user1_id if match.user2_id == user_id else match.user2_id) }}" 
+                       class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Chat</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-600">No confirmed bookings.</p>
+    {% endif %}
+</div>
+{% endblock %}
+```

@@ -1,0 +1,88 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Terms of Use{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8 animate-fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-[var(--primary-color)]">
+        <i class="fas fa-gavel mr-2"></i> Terms of Use
+      </h2>
+      <p class="text-gray-600 mb-6">Last updated: May 19, 2025</p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">1. Acceptance of Terms</h3>
+      <p class="text-gray-600 mb-4">
+        By using FitUni, you agree to these Terms of Use (“Terms”) and our <a href="{{ url_for('privacy') }}" class="text-[var(--primary-color)] hover:underline">Privacy Policy</a>. If you do not agree, please do not use the platform. FitUni connects university students with workout partners, free of charge, supported by non-intrusive analytics.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">2. Eligibility</h3>
+      <p class="text-gray-600 mb-4">
+        FitUni is exclusively for university students, faculty, and staff with a valid university email (@example.edu). You must be 16 or older and comply with university policies.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">3. User Conduct</h3>
+      <p class="text-gray-600 mb-4">
+        You agree to use FitUni for its intended purpose and in accordance with university policies. Prohibited actions include:
+      </p>
+      <ul class="list-disc pl-6 text-gray-600 mb-4">
+        <li>Impersonating others or using fake university emails.</li>
+        <li>Posting offensive, harmful, or illegal content.</li>
+        <li>Using the platform for unauthorized commercial purposes.</li>
+        <li>Harassing workout partners or violating privacy.</li>
+        <li>Attempting to breach platform security.</li>
+      </ul>
+      <p class="text-gray-600 mb-4">
+        After matching, communicate respectfully via chat and confirm workout schedules.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">4. Intellectual Property</h3>
+      <p class="text-gray-600 mb-4">
+        FitUni, including its logo, design, and content, is the intellectual property of the project creators. You may not copy, distribute, or modify it without permission. Content you create (e.g., profile description) remains yours, but you grant FitUni permission to use it for platform operations.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">5. Account Security</h3>
+      <p class="text-gray-600 mb-4">
+        You are responsible for securing your account. Report unauthorized access to <a href="mailto:support@example.edu" class="text-[var(--primary-color)] hover:underline">support@example.edu</a>. We use bcrypt encryption and honeypot fields, but we are not liable if you disclose your password.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">6. Account Termination</h3>
+      <p class="text-gray-600 mb-4">
+        We may suspend or delete accounts for violations of these Terms, university policies, or applicable laws. You may delete your account by contacting us, subject to our data retention policy.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">7. Limitation of Liability</h3>
+      <p class="text-gray-600 mb-4">
+        FitUni is provided “as is” without warranties. We are not liable for damages from platform use, including sports injuries, data breaches beyond our control, or service interruptions. You assume risks when meeting workout partners.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">8. Governing Law</h3>
+      <p class="text-gray-600 mb-4">
+        These Terms are governed by applicable local laws. Disputes will be resolved in courts with jurisdiction in the university’s locale, in accordance with university policies.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">9. Terms Updates</h3>
+      <p class="text-gray-600 mb-4">
+        We may update these Terms. Continued use constitutes acceptance. Check this page regularly.
+      </p>
+
+      <h3 class="text-xl font-semibold text-gray-800 mt-6 mb-4">10. Contact</h3>
+      <p class="text-gray-600 mb-4">
+        For questions, contact: <a href="mailto:support@example.edu" class="text-[var(--primary-color)] hover:underline">support@example.edu</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+```

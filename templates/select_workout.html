@@ -1,0 +1,83 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Select Workout Details{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg animate-fade-in">
+      <h1 class="text-2xl font-bold text-[var(--primary-color)] mb-4 flex items-center">
+        <i class="fas fa-dumbbell mr-2"></i> Select Workout Details
+      </h1>
+      <p class="text-gray-600 mb-4">You’re sending a workout request to <strong>{{ best_match.name }}</strong>. Choose a time and sport.</p>
+
+      <form method="POST" action="{{ url_for('find_match', user_id=user_id, receiver_id=receiver_id) }}">
+        <!-- Time Slot Selection -->
+        <div class="mb-4">
+          <label for="time_slot" class="block text-gray-800 font-semibold mb-2">Time</label>
+          {% if shared_slots %}
+            <select name="time_slot" id="time_slot" class="w-full p-2 border rounded-md" required>
+              <option value="" disabled selected>Select a time</option>
+              {% for slot in shared_slots %}
+                <option value="{{ slot }}">{{ slot | format_datetime }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="datetime-local" name="time_slot" id="time_slot" class="w-full p-2 border rounded-md" required>
+            <p class="text-sm text-gray-500 mt-1">No common time slots found. Please propose a time.</p>
+          {% endif %}
+        </div>
+
+        <!-- Sport Selection -->
+        <div class="mb-4">
+          <label for="sport" class="block text-gray-800 font-semibold mb-2">Sport</label>
+          <select name="sport" id="sport" class="w-full p-2 border rounded-md" required onchange="toggleOtherSport(this)">
+            <option value="" disabled selected>Select a sport</option>
+            {% for sport in shared_sports %}
+              <option value="{{ sport }}">{{ sport | capitalize }}</option>
+            {% endfor %}
+            <option value="Other">Other</option>
+          </select>
+          <input type="text" name="other_sport" id="other_sport" class="w-full p-2 border rounded-md mt-2 hidden" placeholder="Specify other sport">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-center space-x-4">
+          <button type="submit" class="bg-[var(--primary-color)] text-white font-bold py-2 px-4 rounded-md hover:bg-[var(--primary-dark)] transition-colors transform hover:scale-105 flex items-center justify-center shadow-lg">
+            <i class="fas fa-check mr-2"></i> Confirm
+          </button>
+          <a href="{{ url_for('dashboard', user_id=user_id) }}" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-md hover:bg-gray-400 transition-colors flex items-center justify-center shadow-lg">
+            <i class="fas fa-times mr-2"></i> Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleOtherSport(select) {
+    const otherSportInput = document.getElementById('other_sport');
+    if (select.value === 'Other') {
+      otherSportInput.classList.remove('hidden');
+      otherSportInput.required = true;
+    } else {
+      otherSportInput.classList.add('hidden');
+      otherSportInput.required = false;
+      otherSportInput.value = '';
+    }
+  }
+</script>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+```

@@ -1,0 +1,157 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Find Workout Partners at University{% endblock %}
+
+{% block content %}
+  <!-- Banner -->
+  <div class="banner text-center py-2 bg-[var(--primary-dark)] animate-fade-in">
+    <p class="text-sm text-white font-medium">
+      Supporting Good Health and Well-Being
+    </p>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="bg-cover bg-center text-white py-12 md:py-20" style="background-image: url('https://images.unsplash.com/photo-1607962252666-2c33af3c6ba6?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3'); background-color: rgba(0, 0, 0, 0.5); background-blend-mode: overlay;">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 animate-fade-in" style="font-family: 'Roboto', sans-serif;">
+        Find Workout Partners at University in 3 Minutes!
+      </h1>
+      <p class="text-lg md:text-xl mb-6 animate-fade-in">
+        Connect with partners based on sports, schedules, and location.<br>
+        70% of students find their ideal workout buddy!
+      </p>
+      <form method="POST" action="{{ url_for('landing') }}" class="max-w-md mx-auto animate-fade-in">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input type="email" name="email" placeholder="Enter your university email" class="w-full rounded-md border-gray-300 shadow-sm focus:border-white focus:ring-white text-white bg-transparent px-4 py-2 placeholder-gray-200" required aria-label="University Email">
+          <button type="submit" class="bg-[var(--primary-color)] text-white font-bold py-2 px-6 rounded-md hover:bg-white hover:text-[var(--primary-color)] transition-colors transform hover:scale-105 flex items-center justify-center shadow-lg" aria-label="Get Started">
+            <i class="fas fa-running mr-2"></i> Get Started
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-12 text-center" style="font-family: 'Roboto', sans-serif;">
+        Why Choose FitUni?
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center transform hover:scale-105 transition-transform">
+          <i class="fas fa-user-plus text-4xl text-[var(--primary-color)] mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Personalized Matching</h3>
+          <p class="text-gray-600">Find partners based on sports, availability, and location with advanced algorithms.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 text-center transform hover:scale-105 transition-transform">
+          <i class="fas fa-shield-alt text-4xl text-[var(--primary-color)] mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Safe and Private</h3>
+          <p class="text-gray-600">Verified university students only.</p>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 text-center transform hover:scale-105 transition-transform">
+          <i class="fas fa-star text-4xl text-[var(--primary-color)] mb-4"></i>
+          <h3 class="text-xl font-semibold mb-2">Boost Motivation</h3>
+          <p class="text-gray-600">Track your activity streak and join exciting community events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-8" style="font-family: 'Roboto', sans-serif;">
+        Trusted and Secure
+      </h2>
+      <div class="flex flex-col md:flex-row justify-center gap-8">
+        <div class="flex items-center gap-4">
+          <i class="fas fa-lock text-3xl text-[var(--primary-color)]"></i>
+          <p class="text-gray-600">Secure data, no personal information shared.</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <i class="fas fa-check-circle text-3xl text-[var(--primary-color)]"></i>
+          <p class="text-gray-600">Exclusive to university community.</p>
+        </div>
+      </div>
+      <p class="mt-4 text-gray-600">See our <a href="{{ url_for('privacy') }}" class="text-[var(--primary-color)] cursor-pointer">Privacy Policy</a> for more details.</p>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-12 text-center" style="font-family: 'Roboto', sans-serif;">
+        What Students Say
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-lg shadow-md p-6 flex items-center gap-4">
+          <div>
+            <p class="text-gray-600 mb-2">“Finding a yoga partner with my schedule was so easy with the location filter!”</p>
+            <p class="font-semibold text-[var(--primary-color)]">– Jane Doe, Class of 2025</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex items-center gap-4">
+          <div>
+            <p class="text-gray-600 mb-2">“Great interface, super easy to find badminton partners!”</p>
+            <p class="font-semibold text-[var(--primary-color)]">– John Smith, Class of 2025</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="py-16 bg-[var(--primary-color)] text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4" style="font-family: 'Roboto', sans-serif;">
+        Ready to Get Active?
+      </h2>
+      <p class="text-lg mb-6">
+        Join for free, find a workout partner, and start your fitness journey today!
+      </p>
+      <form method="POST" action="{{ url_for('landing') }}" class="max-w-md mx-auto">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Enter your university email" 
+            class="w-full rounded-md border-gray-300 bg-white text-gray-900 px-4 py-2 shadow-sm focus:border-white focus:ring-2 focus:ring-white" 
+            required 
+            aria-label="University Email"
+          >
+          <button 
+            type="submit" 
+            class="bg-white text-[var(--primary-color)] font-bold py-2 px-6 rounded-md hover:bg-gray-200 transition-colors transform hover:scale-105 flex items-center justify-center shadow-lg" 
+            aria-label="Join for Free"
+          >
+            <i class="fas fa-running mr-2"></i> Join for Free!
+          </button>
+        </div>
+      </form>
+      <p class="mt-4 text-sm">Safe & Free</p>
+    </div>
+  </section>
+
+  <!-- CSS for Responsiveness and Animations -->
+  <style>
+    @media (max-width: 640px) {
+      .text-4xl { font-size: 2rem; }
+      .text-lg { font-size: 1rem; }
+      .container { padding-left: 1rem; padding-right: 1rem; }
+      .flex.sm\:flex-row { flex-direction: column; }
+      .gap-4 { gap: 1rem; }
+    }
+    .animate-fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    :root {
+      --primary-color: #ad171c;
+    }
+  </style>
+{% endblock %}
+```

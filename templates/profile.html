@@ -1,0 +1,362 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 animate-fade-in">
+      <h2 class="text-3xl font-bold text-center mb-6 text-[var(--primary-color)]">
+        <span class="material-icons mr-2">person</span> Set Up Your FitUni Profile
+      </h2>
+      <p class="text-center text-gray-600 mb-6">Update your profile to find suitable workout partners!</p>
+
+      <form method="POST" action="{{ url_for('profile', user_id=user['id']) }}" id="profile-form">
+        <!-- Name -->
+        <div class="mb-6">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+          <input type="text" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" id="name" name="name" value="{{ form_data.name if form_data else user['name'] or '' }}" required>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-6">
+          <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+          <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" id="gender" name="gender" required>
+            <option value="" {% if not form_data.gender and not user['gender'] %}selected{% endif %}>Select</option>
+            <option value="male" {% if (form_data and form_data.gender == 'male') or (user['gender'] == 'male') %}selected{% endif %}>Male</option>
+            <option value="female" {% if (form_data and form_data.gender == 'female') or (user['gender'] == 'female') %}selected{% endif %}>Female</option>
+            <option value="other" {% if (form_data and form_data.gender == 'other') or (user['gender'] == 'other') %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+
+        <!-- Class -->
+        <div class="mb-6">
+          <label for="class" class="block text-sm font-medium text-gray-700 mb-2">Year</label>
+          <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" id="class" name="class" {% if not user['profile_complete'] %}required{% endif %}>
+            <option value="" {% if not form_data.class and not user['class'] %}selected{% endif %}>Select Year</option>
+            <option value="Year1" {% if (form_data and form_data.class == 'Year1') or (user['class'] == 'Year1') %}selected{% endif %}>Year 1</option>
+            <option value="Year2" {% if (form_data and form_data.class == 'Year2') or (user['class'] == 'Year2') %}selected{% endif %}>Year 2</option>
+            <option value="Year3" {% if (form_data and form_data.class == 'Year3') or (user['class'] == 'Year3') %}selected{% endif %}>Year 3</option>
+            <option value="Year4" {% if (form_data and form_data.class == 'Year4') or (user['class'] == 'Year4') %}selected{% endif %}>Year 4</option>
+          </select>
+        </div>
+
+        <!-- Age -->
+        <div class="mb-6">
+          <label for="age" class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+          <input type="number" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" id="age" name="age" value="{{ form_data.age if form_data else user['age'] or '' }}" min="16" max="100" required>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-6">
+          <label for="location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+          <select id="location" name="location" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" required>
+            <option value="" disabled {% if not user.location %}selected{% endif %}>Select Location</option>
+            <option value="Campus" {% if user.location == 'Campus' %}selected{% endif %}>Campus</option>
+            <option value="Downtown" {% if user.location == 'Downtown' %}selected{% endif %}>Downtown</option>
+            <option value="Suburbs" {% if user.location == 'Suburbs' %}selected{% endif %}>Suburbs</option>
+          </select>
+        </div>
+
+        <!-- Sports Selection -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Sports</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="badminton" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'badminton' in form_data.sports) or (user['sports'] and 'badminton' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-shuttlecock mr-1"></i> Badminton</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="gym" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'gym' in form_data.sports) or (user['sports'] and 'gym' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-dumbbell mr-1"></i> Gym</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="swimming" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'swimming' in form_data.sports) or (user['sports'] and 'swimming' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-swimmer mr-1"></i> Swimming</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="football" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'football' in form_data.sports) or (user['sports'] and 'football' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-futbol mr-1"></i> Football</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="table tennis" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'table tennis' in form_data.sports) or (user['sports'] and 'table tennis' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-table-tennis mr-1"></i> Table Tennis</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="volleyball" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'volleyball' in form_data.sports) or (user['sports'] and 'volleyball' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-volleyball-ball mr-1"></i> Volleyball</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="basketball" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'basketball' in form_data.sports) or (user['sports'] and 'basketball' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-basketball-ball mr-1"></i> Basketball</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="running" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'running' in form_data.sports) or (user['sports'] and 'running' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-running mr-1"></i> Running</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="cycling" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'cycling' in form_data.sports) or (user['sports'] and 'cycling' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-bicycle mr-1"></i> Cycling</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="yoga" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'yoga' in form_data.sports) or (user['sports'] and 'yoga' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-child mr-1"></i> Yoga</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" name="sports" value="combat sports" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and 'combat sports' in form_data.sports) or (user['sports'] and 'combat sports' in user['sports']) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700"><i class="fas fa-fist-raised mr-1"></i> Combat Sports</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Skill Levels (Dynamic) -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Skill Levels</label>
+          <div id="skill-levels" class="space-y-2">
+            {% if form_data.sports %}
+              {% for sport in form_data.sports %}
+                <div>
+                  <label for="skill_{{ sport }}" class="block text-sm text-gray-700 capitalize">{{ sport }}</label>
+                  <select name="skill_{{ sport }}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors">
+                    <option value="beginner" {% if form_data.get('skill_' + sport) == 'beginner' %}selected{% endif %}>Beginner</option>
+                    <option value="intermediate" {% if form_data.get('skill_' + sport) == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                    <option value="advanced" {% if form_data.get('skill_' + sport) == 'advanced' %}selected{% endif %}>Advanced</option>
+                  </select>
+                </div>
+              {% endfor %}
+            {% elif user['sports'] %}
+              {% for sport in user['sports'] %}
+                <div>
+                  <label for="skill_{{ sport }}" class="block text-sm text-gray-700 capitalize">{{ sport }}</label>
+                  <select name="skill_{{ sport }}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors">
+                    <option value="beginner" {% if user['skill_levels'] and user['skill_levels'].get(sport) == 'beginner' %}selected{% endif %}>Beginner</option>
+                    <option value="intermediate" {% if user['skill_levels'] and user['skill_levels'].get(sport) == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                    <option value="advanced" {% if user['skill_levels'] and user['skill_levels'].get(sport) == 'advanced' %}selected{% endif %}>Advanced</option>
+                  </select>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Other Preferences</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" name="same_gender" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if (form_data and form_data.same_gender) or (user['preferences'] and user['preferences'].get('same_gender')) %}checked{% endif %}>
+              <span class="ml-2 text-gray-700">Same Gender</span>
+            </label>
+            <div>
+              <label for="motivation" class="block text-sm text-gray-700">Workout Motivation</label>
+              <select name="motivation" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors">
+                <option value="low" {% if (form_data and form_data.motivation == 'low') or (user['preferences'] and user['preferences'].get('motivation') == 'low') %}selected{% endif %}>Low</option>
+                <option value="medium" {% if (form_data and form_data.motivation == 'medium') or (user['preferences'] and user['preferences'].get('motivation') == 'medium') %}selected{% endif %}>Medium</option>
+                <option value="high" {% if (form_data and form_data.motivation == 'high') or (user['preferences'] and user['preferences'].get('motivation') == 'high') %}selected{% endif %}>High</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-6">
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Brief Introduction</label>
+          <textarea name="description" class="w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-[var(--primary-color)] transition-colors" rows="4">{{ form_data.description if form_data else user['description'] or '' }}</textarea>
+        </div>
+
+        <!-- Time Slots -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Select Available Times</label>
+          <p class="text-sm text-gray-600 mb-4 bg-blue-50 p-3 rounded-md">
+            <strong>Select Availability</strong>: Choose at least two time slots (6:00–22:00) to find compatible partners.<br>
+            - <strong>Weekly Recurring</strong>: Select fixed weekly times (e.g., Monday 14:00).<br>
+            - <strong>One-Time</strong>: Select specific times within the next 14 days (e.g., 05/23/2025 07:00).<br>
+            Click "Weekly Recurring" or "One-Time" to view the respective calendar.
+          </p>
+          <div class="mb-4">
+            <div class="flex space-x-4 mb-2">
+              <label class="flex items-center">
+                <input type="radio" id="recurring-radio" name="time_slot_type" value="recurring" data-type="recurring" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300" checked>
+                <span class="ml-2 text-gray-700 font-semibold">Weekly Recurring</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" id="one-time-radio" name="time_slot_type" value="one_time" data-type="one_time" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300">
+                <span class="ml-2 text-gray-700 font-semibold">One-Time</span>
+              </label>
+            </div>
+            <div id="recurring-slots" class="bg-gray-50 p-4 rounded-md border border-gray-300" style="display: block;">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Weekly Recurring Schedule</h3>
+              {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %}
+                <div class="mb-2">
+                  <label class="block text-sm font-medium text-gray-700">{{ day }}</label>
+                  <div class="grid grid-cols-4 gap-2">
+                    {% for hour in range(6, 22) %}
+                      <label class="flex items-center">
+                        <input type="checkbox" name="recurring_slots" value="{{ day }}-{{ '%02d:00' % hour }}" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded" {% if user['recurring_slots'] and (day in user['recurring_slots']) and ('%02d:00' % hour in user['recurring_slots'][day]) %}checked{% endif %}>
+                        <span class="ml-2 text-sm text-gray-700">{{ '%02d:00' % hour }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div id="one-time-slots" class="bg-gray-50 p-4 rounded-md border border-gray-300 max-h-96 overflow-y-auto" style="display: none;">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">One-Time Schedule</h3>
+              {% for date_info in available_dates %}
+                <div class="mb-4">
+                  <h4 class="text-md font-semibold text-gray-800">{{ date_info.date }} ({{ date_info.day }})</h4>
+                  <div class="grid grid-cols-4 gap-2">
+                    {% for slot in date_info.slots %}
+                      <label class="flex items-center">
+                        <input type="checkbox" name="time_slots" value="{{ slot.time }}" class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded time-slot-checkbox" {% if (form_data and slot.time in form_data.time_slots) or (user['time_slots'] and slot.time in user['time_slots']) %}checked{% endif %}>
+                        <span class="ml-2 text-sm text-gray-700">{{ slot.display }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <button type="button" id="debug-toggle" class="mt-2 bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-gray-300">Test Toggle</button>
+          </div>
+        </div>
+
+        <!-- Honeypot Field -->
+        <div class="hidden" style="display: none;">
+          <label for="website">Website (leave blank)</label>
+          <input type="text" id="website" name="website" value="">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-white text-[var(--primary-color)] font-bold py-3 rounded-md hover:bg-gray-100 hover:shadow-lg transition-colors transform hover:scale-105 flex items-center justify-center border-2 border-[var(--primary-color)]">
+          <i class="fas fa-save mr-2 text-[var(--primary-color)]"></i> <span class="text-[var(--primary-color)]">Save Profile</span>
+        </button>
+      </form>
+
+      <!-- Back to Dashboard Button -->
+      <a href="{{ url_for('dashboard', user_id=user['id']) }}" class="mt-4 block w-full bg-gray-600 text-white py-2 rounded-md hover:bg-gray-700 transition-colors text-center transform hover:scale-105">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Success Modal -->
+{% if success %}
+<div id="profileUpdateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-md shadow-lg max-w-md w-full p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h5 class="text-xl font-bold text-[var(--primary-color)]">Update Successful!</h5>
+      <button onclick="document.getElementById('profileUpdateModal').classList.add('hidden')" class="text-gray-500 hover:underline">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="text-gray-600 mb-6">
+      Your profile is ready! Visit the dashboard to find compatible workout partners.
+    </div>
+    <div class="flex justify-end space-x-4">
+      <a href="{{ url_for('dashboard', user_id=user['id']) }}" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors">
+        Go to Dashboard
+      </a>
+      <button onclick="document.getElementById('profileUpdateModal').classList.add('hidden')" class="border border-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+(function() {
+  function toggleTimeSlots(type) {
+    const recurringSlotsDiv = document.getElementById('recurring-slots');
+    const oneTimeSlotsDiv = document.getElementById('one-time-slots');
+    
+    if (!recurringSlotsDiv || !oneTimeSlotsDiv) {
+      alert('Error: Cannot find time slot elements.');
+      return;
+    }
+
+    const selectedType = type || document.querySelector('input[name="time_slot_type"]:checked')?.value || 'recurring';
+    recurringSlotsDiv.style.display = selectedType === 'recurring' ? 'block' : 'none';
+    oneTimeSlotsDiv.style.display = selectedType === 'one_time' ? 'block' : 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    toggleTimeSlots();
+    const form = document.getElementById('profile-form');
+    form.addEventListener('click', function(e) {
+      if (e.target.name === 'time_slot_type') {
+        toggleTimeSlots(e.target.value);
+      }
+    });
+    document.getElementById('debug-toggle').addEventListener('click', function() {
+      const currentType = document.querySelector('input[name="time_slot_type"]:checked').value === 'recurring' ? 'one_time' : 'recurring';
+      document.getElementById(currentType === 'recurring' ? 'recurring-radio' : 'one-time-radio').checked = true;
+      toggleTimeSlots(currentType);
+    });
+  });
+})();
+document.addEventListener('DOMContentLoaded', function() {
+  const sportsCheckboxes = document.querySelectorAll('input[name="sports"]');
+  const skillLevelsContainer = document.getElementById('skill-levels');
+  const form = document.getElementById('profile-form');
+
+  function updateSkillLevels() {
+    const selectedSports = Array.from(sportsCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    skillLevelsContainer.innerHTML = '';
+    selectedSports.forEach(sport => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <label for="skill_${sport}" class="block text-sm text-gray-700 capitalize">${sport}</label>
+        <select name="skill_${sport}" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary-color)] focus:ring-blue-500">
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      `;
+      skillLevelsContainer.appendChild(div);
+      const userSkills = JSON.parse("{{ user['skill_levels'] | tojson | safe }}" || '{}');
+      if (userSkills && userSkills[sport]) {
+        div.querySelector('select').value = userSkills[sport];
+      }
+    });
+  }
+
+  sportsCheckboxes.forEach(cb => cb.addEventListener('change', updateSkillLevels));
+  updateSkillLevels();
+
+  form.addEventListener('submit', function(e) {
+    const timeSlots = document.querySelectorAll('input[name="time_slots"]:checked').length;
+    const recurringSlots = document.querySelectorAll('input[name="recurring_slots"]:checked').length;
+    if (timeSlots + recurringSlots < 2) {
+      e.preventDefault();
+      alert('Please select at least two time slots (one-time or recurring).');
+      document.querySelector('.mb-6').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 640px) {
+    .text-3xl { font-size: 1.5rem; }
+    .max-w-lg { width: 100%; }
+    input, select, textarea { font-size: 0.875rem; }
+    .grid-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+{% endblock %}
+```
