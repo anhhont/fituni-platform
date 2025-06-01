@@ -26,91 +26,73 @@ FitUni is a web application that connects university students with compatible fi
 ## Setup Instructions
 
 ### Prerequisites
+
 - Python 3.8+
 - PostgreSQL
 - Virtual environment (recommended)
 
 ### Installation
+
 1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/anhhont/fituni-platform.git
-   cd fituni-platform
+    ```bash
+    git clone https://github.com/anhhont/fituni-platform.git
+    cd fituni-platform
+    ```
 
+2. **Set Up a Virtual Environment**:
+    ```bash
+    python -m venv venv
+    # On macOS/Linux:
+    source venv/bin/activate
+    # On Windows:
+    venv\Scripts\activate
+    ```
 
-Set Up a Virtual Environment:
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+4. **Set Up Environment Variables**:  
+   Create a `.env` file in the project root with the following content:
+    ```
+    FLASK_SECRET_KEY=your-secret-key
+    DATABASE_URL=your-postgresql-url
+    RECAPTCHA_PUBLIC_KEY=your-recaptcha-public-key
+    RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
+    MAIL_USERNAME=your-email@example.com
+    MAIL_PASSWORD=your-email-password
+    ```
 
-Install Dependencies:
-pip install -r requirements.txt
+5. **Initialize the Database**:  
+   Run the application once to create tables:
+    ```bash
+    python [app.py](http://_vscodecontentref_/1)
+    ```
 
+6. **Run the Application**:
+    ```bash
+    python [app.py](http://_vscodecontentref_/2)
+    ```
+    Access at [http://localhost:5000](http://localhost:5000).
 
-Set Up Environment Variables:Create a .env file in the project root:
-FLASK_SECRET_KEY=your-secret-key
-DATABASE_URL=your-postgresql-url
-RECAPTCHA_PUBLIC_KEY=your-recaptcha-public-key
-RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
-MAIL_USERNAME=your-email@example.com
-MAIL_PASSWORD=your-email-password
+## Usage
 
+- **Sign Up**: Register with a university email and verify with a 4-digit code sent to your email.
+- **Complete Profile**: Add sports, skill levels, availability, and preferences via an interactive form.
+- **Find Matches**: Browse potential partners using a swipeable interface or select specific matches.
+- **Send Requests**: Propose workout sessions with specific times and sports.
+- **Chat**: Communicate with matched partners to plan workouts.
 
-Initialize the Database:Run the application to create tables:
-python app.py
+## License
 
+This project is licensed under the MIT License. See the [LICENSE](http://_vscodecontentref_/3) file for details.
 
-Run the Application:
-python app.py
+## Contact
 
-Access at http://localhost:5000.
+For questions or feedback, reach out via [hi@hnta.xyz](mailto:hi@hnta.xyz) or open an issue on GitHub.
 
+---
 
-Usage
-
-Sign Up: Register with a university email and verify with a 4-digit code sent to your email.
-Complete Profile: Add sports, skill levels, availability, and preferences via an interactive form.
-Find Matches: Browse potential partners using a swipeable interface or select specific matches.
-Send Requests: Propose workout sessions with specific times and sports.
-Chat: Communicate with matched partners to plan workouts.
-
-Project Structure
-fituni-platform/
-├── app.py              # Main Flask application
-├── templates/          # HTML templates
-│   ├── base.html
-│   ├── bookings.html
-│   ├── chat.html
-│   ├── dashboard.html
-│   ├── find_instructor.html
-│   ├── find_match.html
-│   ├── landing.html
-│   ├── match.html
-│   ├── privacy.html
-│   ├── profile.html
-│   ├── select_workout.html
-│   ├── signin.html
-│   ├── signup.html
-│   ├── terms.html
-│   ├── verify.html
-├── .gitignore         # Git ignore file
-├── requirements.txt   # Python dependencies
-├── .env.example       # Example environment variables
-├── LICENSE            # MIT License
-├── README.md          # This file
-
-GitHub Best Practices
-
-Clear README: Details project overview, setup, and usage.
-.gitignore: Excludes sensitive files (.env, venv/, __pycache__/).
-License: MIT License for open-source sharing.
-Requirements File: Lists all Python dependencies.
-Environment Variables: Sensitive data stored in .env.
-Code Organization: Modular backend and frontend with 15 Jinja2 templates.
-Frontend: Responsive design with Tailwind CSS (CDN), Swiper.js for swipeable matching, and dynamic forms (e.g., profile time slots).
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-Contact
-For questions or feedback, reach out via hi@hnta.xyz or open an issue on GitHub.
-
-Note: This is a sanitized version of the original project, with sensitive data (e.g., reCAPTCHA keys, university references, location lists) removed or generalized.```
+**Note:**  
+This is a sanitized version of the original project, with sensitive data (e.g., reCAPTCHA keys, university references, location lists) removed or generalized.
