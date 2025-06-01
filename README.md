@@ -86,7 +86,7 @@ FitUni is a web application that connects university students with compatible fi
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](http://_vscodecontentref_/3) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/anhhont/fituni-platform?tab=MIT-1-ov-file#readme) file for details.
 
 ## Contact
 
