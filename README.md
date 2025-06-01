@@ -67,12 +67,12 @@ FitUni is a web application that connects university students with compatible fi
 5. **Initialize the Database**:  
    Run the application once to create tables:
     ```bash
-    python [app.py](http://_vscodecontentref_/1)
+    python app.py
     ```
 
 6. **Run the Application**:
     ```bash
-    python [app.py](http://_vscodecontentref_/2)
+    python app.py
     ```
     Access at [http://localhost:5000](http://localhost:5000).
 
@@ -84,6 +84,34 @@ FitUni is a web application that connects university students with compatible fi
 - **Send Requests**: Propose workout sessions with specific times and sports.
 - **Chat**: Communicate with matched partners to plan workouts.
 
+## Project structure
+
+    ```bash
+    fituni-platform/
+├── app.py              # Main Flask application
+├── templates/          # HTML templates
+│   ├── base.html
+│   ├── bookings.html
+│   ├── chat.html
+│   ├── dashboard.html
+│   ├── find_instructor.html
+│   ├── find_match.html
+│   ├── landing.html
+│   ├── match.html
+│   ├── privacy.html
+│   ├── profile.html
+│   ├── select_workout.html
+│   ├── signin.html
+│   ├── signup.html
+│   ├── terms.html
+│   ├── verify.html
+├── .gitignore         # Git ignore file
+├── requirements.txt   # Python dependencies
+├── .env.example       # Example environment variables
+├── LICENSE            # MIT License
+├── README.md          # This file
+    ```
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/anhhont/fituni-platform?tab=MIT-1-ov-file#readme) file for details.
@@ -94,5 +122,5 @@ For questions or feedback, reach out via [hi@hnta.xyz](mailto:hi@hnta.xyz) or op
 
 ---
 
-**Note:**  
+## Note: 
 This is a sanitized version of the original project, with sensitive data (e.g., reCAPTCHA keys, university references, location lists) removed or generalized.
