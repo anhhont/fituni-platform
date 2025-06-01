@@ -1,4 +1,4 @@
-# FitUni - Fitness Partner Matching Platform
+# FitUni-Platform - Fitness Partner Matching Platform
 
 FitUni is a web application that connects university students with compatible fitness partners based on shared sports interests, schedules, and locations. Built with Flask, PostgreSQL, and a Tailwind CSS frontend, it features secure user authentication, dynamic profile management, a machine learning-based matching algorithm, and email notifications. This project demonstrates skills in full-stack development, database design, and responsive UI creation.
 
@@ -33,8 +33,8 @@ FitUni is a web application that connects university students with compatible fi
 ### Installation
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/fituni-public.git
-   cd fituni-public
+   git clone https://github.com/anhhont/fituni-platform.git
+   cd fituni-platform
 
 
 Set Up a Virtual Environment:
@@ -49,6 +49,7 @@ pip install -r requirements.txt
 Set Up Environment Variables:Create a .env file in the project root:
 FLASK_SECRET_KEY=your-secret-key
 DATABASE_URL=your-postgresql-url
+RECAPTCHA_PUBLIC_KEY=your-recaptcha-public-key
 RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
 MAIL_USERNAME=your-email@example.com
 MAIL_PASSWORD=your-email-password
@@ -73,7 +74,7 @@ Send Requests: Propose workout sessions with specific times and sports.
 Chat: Communicate with matched partners to plan workouts.
 
 Project Structure
-fituni-public/
+fituni-platform/
 ├── app.py              # Main Flask application
 ├── templates/          # HTML templates
 │   ├── base.html
@@ -110,6 +111,6 @@ Frontend: Responsive design with Tailwind CSS (CDN), Swiper.js for swipeable mat
 License
 This project is licensed under the MIT License. See the LICENSE file for details.
 Contact
-For questions or feedback, reach out via your.email@example.com or open an issue on GitHub.
+For questions or feedback, reach out via hi@hnta.xyz or open an issue on GitHub.
 
 Note: This is a sanitized version of the original project, with sensitive data (e.g., reCAPTCHA keys, university references, location lists) removed or generalized.```
